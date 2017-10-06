@@ -1,0 +1,31 @@
+//方法一:
+var arr=[2,4,1,2,10,0,21,6,21,10,42,0,-3]
+Array.prototype.unique=function(){
+				this.sort();
+				var res=[this[0]];
+				for(var i=1;i<this.length;i++){
+					if(this[i]!==res[res.length-1])
+					res.push(this[i]);
+				}
+				return res;
+        }
+        //通过构造函数给数组原型添加一个unique方法,开始通过sort排序,使相同的元素能够毗邻,注意,这里this的指向的是这个方法所指向的对象,如下面,arr采用了这个方法,故this指向大的是arr
+        //记住,这里必须调用这个方法
+        console.log(arr.unique());
+   //////////////////////////////////////////
+   方法二:
+   Array.prototype.unique=function(){
+				var res=[];
+				var json={};
+				for(var i=0;i<this.length;i++){
+					if(!json[this[i]]){
+						res.push(this[i]);
+						json[this[i]]=1;
+					}
+				}
+				return res;
+			};
+      console.log(arr.unique());    
+      //这个方法二好在可以不改变原始数组排序达到去重效果,
+      ps:for循环时，每次取出一个元素与对象进行对比，如果这个元素不重复，则把它存放到结果数组中，同时把这个元素的内容作为对象的一个属性，并赋值为1，存入到第2步建立的对象中。
+          说明：至于如何对比，就是每次从原数组中取出一个元素，然后到对象中去访问这个属性，如果能访问到值，则说明重复。

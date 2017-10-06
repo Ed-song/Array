@@ -1,0 +1,22 @@
+//迭代在数组去扁平化中甚是关键
+var arr=[[1,2,2],[3,4,5,5],[6,7,8,9],[11,12,[12,14[14]]],10];
+
+//首先定义个空数组
+var newArr=[];
+
+function simpleArr(arr){
+    for(var i=0;i<arr.length;i++){
+    //判断这个参数对象是否是一个数组,instanceof的作用是判断某个对象是否是某个类的实例,ps:所有的类都是object的实例
+      if(arr[i] instanceof Array){
+      //如果遍历的对象依旧是一个数组,我们需要对其再进行遍历判断,得到非数组部分
+          simpleArr(arr[i]);
+      }
+      else{
+        newArr.push(arr[i]);
+      }
+   }
+}
+//别忘了,这里我们还需要调用这个simpleFn函数才行,也不要忘了里面的参数
+simpleArr(arr);
+//至此将扁平化的结果都放入newArr中
+console.log(newArr);
